@@ -1,0 +1,22 @@
+{
+  "name": "learn-dy-vue",
+  "version": "1.0.0",
+  "repository": "https://github.com/langyamu/_learn-dy-vue",
+  "author": "langyamu",
+  "license": "MIT",
+  "scripts": {
+    "start": "http-server ./",
+    "cz": "git add . && git cz"
+  },
+  "devDependencies": {
+    "cz-git": "^1.11.0"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  }
+}
