@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 模版 -> vue -> 真实的 DOM 元素-->
+    <div id="app">
+        <!-- mustache 大胡子语法 | 插值表达式-->
+        <h1>标题：{{ title }}</h1>
+        <ul>
+            <li v-for="(item,index) in products">
+                商品名称：{{ item.name }}
+                <button @click="changeStock(item,item.stock - 1)">-</button>
+                商品库存：{{ item.stock ? item.stock : '无货' }}
+                <button @click="changeStock(item,item.stock + 1)">+</button>
+                <button @click="remove(index)">删除</button>
+            </li>
+        </ul>
+        <p>
+            总库存：{{ total }}
+        </p>
+    </div>
+    <script src="../../.lib/vue.2.7.16.js"></script>
+    <script>
+        // Vue 不是直接控制整个页面的，虽然一般都是控制整个页面，但是它可以只控制页面中的一小部分
+        new Vue({
+            el: '#app', // 这个 Vue 实例控制页面的哪个区域？ CSS 选择器
+            data() { // 页面中要使用的数据
+                return {
+                    title: '商品管理系统',
+                    products: [
+                        { name: 'iphone', stock: 10 },
+                        { name: 'xiaomi', stock: 9 },
+                        { name: 'huawei', stock: 8 }
+                    ]
+                }
+            },
+            computed: {
+                total() {
+                    return this.products.reduce((a, b) => a + b.stock, 0)
+                }
+            },
+            methods: {
+                changeStock(product, newStock) {
+                    if (newStock < 0) {
+                        newStock = 0
+                    }
+                    product.stock = newStock
+                },
+                remove(index){
+                    this.products.splice(index,1)
+                }
+            }
+        })
+
+        // 开发过程中只需要关注 数据如何变化
+        // 模版生成页面，模版是根据数据生成的
+        // 数据响应式：数据变化 页面跟着重新渲染（变化）
+
+        // 关注点 不再是 dom 操作，而是 数据 ，过程中数据是怎么变化的
+    </script>
+</body>
+
+</html>
